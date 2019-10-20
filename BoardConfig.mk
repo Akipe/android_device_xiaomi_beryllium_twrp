@@ -22,18 +22,18 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT := kryo300
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := cortex-a53
+TARGET_2ND_CPU_VARIANT := cortex-a9
 
 TARGET_USES_64_BIT_BINDER := true
 
-#ENABLE_CPUSETS := true
-#ENABLE_SCHEDBOOST := true
+ENABLE_CPUSETS := true
+ENABLE_SCHEDBOOST := true
 
 # Kernel
 BOARD_KERNEL_CMDLINE := \
@@ -59,11 +59,13 @@ BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_OFFSET := 0x01000000
+
 TARGET_KERNEL_ARCH := arm64
+TARGET_KERNEL_HEADER_ARCH   := arm64
+KERNEL_TOOLCHAIN            := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/aarch64/aarch64-linux-android-4.9/bin
+KERNEL_TOOLCHAIN_PREFIX     := aarch64-linux-android-
 TARGET_KERNEL_CONFIG := beryllium_defconfig
-#NEED_KERNEL_MODULE_SYSTEM := true
-#TARGET_KERNEL_CLANG_COMPILE := true
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+# TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_SOURCE := kernel/xiaomi/sdm845
 
 # Partitions
@@ -95,13 +97,12 @@ PLATFORM_SDK_VERSION            := 27
 
 # Full disk encryption
 TARGET_CRYPTFS_HW_PATH          := vendor/qcom/opensource/cryptfs_hw
-#TARGET_CRYPTFS_HW_PATH           := device/xiaomi/beryllium/cryptfs_hw
 TARGET_HW_DISK_ENCRYPTION       := true
 TW_INCLUDE_CRYPTO               := true
 PLATFORM_SECURITY_PATCH         := 2029-10-01
 PLATFORM_VERSION := 16.1.0
 # Use system's VOLD and files in case TWRP's decryption fails
-TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd
+#TW_CRYPTO_USE_SYSTEM_VOLD := qseecomd
 
 # Qualcomm
 BOARD_USES_QCOM_HARDWARE := true
@@ -126,10 +127,8 @@ RECOVERY_VARIANT                := twrp
 # TWRP
 #TW_USE_TOOLBOX                  := true
 TW_THEME                        := portrait_hdpi
-#RECOVERY_TOUCHSCREEN_SWAP_XY    := true
-#RECOVERY_TOUCHSCREEN_FLIP_Y     := true
-TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
-TW_MAX_BRIGHTNESS := 255
+#TW_BRIGHTNESS_PATH := "/sys/devices/platform/soc/ae00000.qcom,mdss_mdp/backlight/panel0-backlight/brightness"
+#TW_MAX_BRIGHTNESS := 255
 #TW_DEFAULT_BRIGHTNESS           := 160
 TW_INPUT_BLACKLIST              := "hbtp_vm"
 #TW_CUSTOM_CPU_TEMP_PATH         := /sys/devices/virtual/thermal/thermal_zone1/temp
@@ -140,11 +139,11 @@ TW_EXTRA_LANGUAGES              := true
 TW_EXCLUDE_TWRPAPP              := true
 BOARD_SUPPRESS_SECURE_ERASE     := true
 TW_INCLUDE_NTFS_3G              := true
-#TW_NEW_ION_HEAP                 := true
+TW_NEW_ION_HEAP                 := true
 TW_INCLUDE_FB2PNG               := true
-#TWRP_NEW_THEME                  := true
-#TW_SCREEN_BLANK_ON_BOOT := true
-#RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TWRP_NEW_THEME                  := true
+TW_Y_OFFSET := 80
+TW_H_OFFSET := -80
 
 TW_DEVICE_VERSION := reloadAkipe
 
@@ -162,15 +161,15 @@ TARGET_RECOVERY_DEVICE_MODULES      += tzdata
 TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT)/usr/share/zoneinfo/tzdata
 
 # Modules for debug
-#ifeq ($(TARGET_BUILD_VARIANT),eng)
+ifeq ($(TARGET_BUILD_VARIANT),eng)
   # debuggerd
-#  TARGET_RECOVERY_DEVICE_MODULES      += debuggerd
-#  TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT)/bin/debuggerd
+  TARGET_RECOVERY_DEVICE_MODULES      += debuggerd
+  TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT)/bin/debuggerd
   # strace
-#  TARGET_RECOVERY_DEVICE_MODULES      += strace
-#  TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT)/bin/strace
+  TARGET_RECOVERY_DEVICE_MODULES      += strace
+  TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT)/xbin/strace
   # twrpdec, useful for debug decrypt with strace
-#  TARGET_RECOVERY_DEVICE_MODULES      += twrpdec
-#  TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_RECOVERY_ROOT_OUT)/sbin/twrpdec
-#endif
+  TARGET_RECOVERY_DEVICE_MODULES      += twrpdec
+  TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_RECOVERY_ROOT_OUT)/sbin/twrpdec
+endif
 
