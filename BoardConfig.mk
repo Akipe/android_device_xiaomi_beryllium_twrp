@@ -135,7 +135,7 @@ TWRP_NEW_THEME                  := true
 TW_Y_OFFSET                     := 85
 TW_H_OFFSET                     := -85
 
-TW_DEVICE_VERSION := reloadAkipe
+# TW_DEVICE_VERSION               := 
 
 ifeq ($(TARGET_BUILD_VARIANT),eng)
   TWRP_INCLUDE_LOGCAT           := true
