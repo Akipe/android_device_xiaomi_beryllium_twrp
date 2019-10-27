@@ -152,6 +152,9 @@ TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT)/usr/share/zoneinfo/tzdata
 # libicuuc
 TARGET_RECOVERY_DEVICE_MODULES      += libicuuc
 TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT)/lib64/libicuuc.so
+# libxml2
+TARGET_RECOVERY_DEVICE_MODULES      += libxml2
+TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT)/lib64/libxml2.so
 
 # Modules for debug
 ifeq ($(TARGET_BUILD_VARIANT),eng)
