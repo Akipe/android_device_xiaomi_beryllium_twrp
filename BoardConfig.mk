@@ -142,8 +142,8 @@ TW_INCLUDE_NTFS_3G              := true
 TW_NEW_ION_HEAP                 := true
 TW_INCLUDE_FB2PNG               := true
 TWRP_NEW_THEME                  := true
-TW_Y_OFFSET := 80
-TW_H_OFFSET := -80
+TW_Y_OFFSET                     := 85
+TW_H_OFFSET                     := -85
 
 TW_DEVICE_VERSION := reloadAkipe
 
