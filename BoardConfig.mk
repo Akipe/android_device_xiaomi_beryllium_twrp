@@ -115,7 +115,7 @@ TARGET_RECOVERY_QCOM_RTC_FIX    := true
 RECOVERY_VARIANT                := twrp
 
 # TWRP
-#TW_USE_TOOLBOX                  := true
+TW_USE_TOOLBOX                  := true
 TW_THEME                        := portrait_hdpi
 TW_BRIGHTNESS_PATH              := /sys/class/backlight/panel0-backlight/brightness
 TW_MAX_BRIGHTNESS               := 4095
@@ -135,7 +135,7 @@ TWRP_NEW_THEME                  := true
 TW_Y_OFFSET                     := 85
 TW_H_OFFSET                     := -85
 
-# TW_DEVICE_VERSION               := 
+TW_DEVICE_VERSION               := beta06-akipe
 
 ifeq ($(TARGET_BUILD_VARIANT),eng)
   TWRP_INCLUDE_LOGCAT           := true
