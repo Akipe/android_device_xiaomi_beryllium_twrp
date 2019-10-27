@@ -149,6 +149,9 @@ endif
 # timezone
 TARGET_RECOVERY_DEVICE_MODULES      += tzdata
 TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT)/usr/share/zoneinfo/tzdata
+# libicuuc
+TARGET_RECOVERY_DEVICE_MODULES      += libicuuc
+TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(TARGET_OUT)/lib64/libicuuc.so
 
 # Modules for debug
 ifeq ($(TARGET_BUILD_VARIANT),eng)
