@@ -48,15 +48,14 @@ BOARD_KERNEL_CMDLINE := \
 	service_locator.enable=1 \
 	swiotlb=2048 \
 	androidboot.configfs=true \
-	loop.max_part=7 \
 	androidboot.usbcontroller=a600000.dwc3
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 BOARD_KERNEL_BASE         := 0x00000000
 BOARD_KERNEL_IMAGE_NAME   := Image.gz-dtb
 BOARD_KERNEL_PAGESIZE     := 4096
-BOARD_KERNEL_TAGS_OFFSET  := 0x00000100
-BOARD_RAMDISK_OFFSET      := 0x01000000
+BOARD_KERNEL_TAGS_OFFSET  := 0x01E00000
+BOARD_RAMDISK_OFFSET      := 0x02000000
 
 TARGET_KERNEL_ARCH          := arm64
 TARGET_KERNEL_HEADER_ARCH   := arm64
@@ -72,7 +71,7 @@ BOARD_BOOTIMAGE_PARTITION_SIZE        := 67108864
 BOARD_CACHEIMAGE_PARTITION_SIZE       := 268435456
 BOARD_SYSTEMIMAGE_PARTITION_SIZE      := 3221225472
 BOARD_USERDATAIMAGE_PARTITION_SIZE    := 57453555712
-BOARD_VENDORIMAGE_PARTITION_SIZE      := 1073741824
+BOARD_VENDORIMAGE_PARTITION_SIZE      := 788529152
 BOARD_RECOVERYIMAGE_PARTITION_SIZE    := 67108864
 
 TARGET_USERIMAGES_USE_EXT4            := true
@@ -80,9 +79,14 @@ TARGET_USERIMAGES_USE_F2FS            := true
 TARGET_USES_MKE2FS                    := true
 BOARD_HAS_LARGE_FILESYSTEM            := true
 
-TARGET_COPY_OUT_VENDOR          := vendor
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE  := ext4
+TARGET_COPY_OUT_VENDOR              := vendor
 
 TARGET_RECOVERY_FSTAB           := device/xiaomi/beryllium/recovery.fstab
+
+# Android Verified Boot
+BOARD_AVB_ENABLE := false
+BOARD_BUILD_DISABLED_VBMETAIMAGE := true
 
 # Android version
 PLATFORM_SDK_VERSION            := 27
@@ -112,7 +116,8 @@ TARGET_RECOVERY_PIXEL_FORMAT    := "BGRA_8888"
 TARGET_RECOVERY_QCOM_RTC_FIX    := true
 
 # Recovery
-RECOVERY_VARIANT                := twrp
+RECOVERY_VARIANT                  := twrp
+RECOVERY_GRAPHICS_USE_LINELENGTH  := true
 
 # TWRP
 TW_USE_TOOLBOX                  := true
@@ -134,6 +139,7 @@ TW_INCLUDE_FB2PNG               := true
 TWRP_NEW_THEME                  := true
 TW_Y_OFFSET                     := 85
 TW_H_OFFSET                     := -85
+TW_USE_LEDS_HAPTICS             := true
 
 TW_DEVICE_VERSION               := beta06-akipe
 
@@ -142,7 +148,9 @@ ifeq ($(TARGET_BUILD_VARIANT),eng)
   TARGET_USES_LOGD              := true
   # TWRP_EVENT_LOGGING            := true
   TW_CRYPTO_SYSTEM_VOLD_DEBUG   := true
-  BOARD_KERNEL_CMDLINE          += loglevel=8
+  BOARD_KERNEL_CMDLINE          += \
+    loglevel=8 \
+    printk.devkmsg=on
 endif
 
 #### Modules

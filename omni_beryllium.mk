@@ -17,6 +17,9 @@ $(call inherit-product, vendor/omni/config/common.mk)
 #TARGET_SCREEN_HEIGHT := 2246
 #TARGET_SCREEN_WIDTH := 1080
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.keystore=sdm845
+
 PRODUCT_NAME            := omni_beryllium
 PRODUCT_DEVICE          := beryllium
 PRODUCT_BRAND           := Xiaomi
