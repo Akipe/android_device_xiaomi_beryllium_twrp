@@ -61,7 +61,7 @@ TARGET_KERNEL_ARCH          := arm64
 TARGET_KERNEL_HEADER_ARCH   := arm64
 KERNEL_TOOLCHAIN            := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/aarch64/aarch64-linux-android-4.9/bin
 KERNEL_TOOLCHAIN_PREFIX     := aarch64-linux-android-
-TARGET_KERNEL_CONFIG        := beryllium_user_defconfig
+TARGET_KERNEL_CONFIG        := beryllium_defconfig
 # TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_SOURCE        := kernel/xiaomi/sdm845
 
